@@ -1,0 +1,9 @@
+zh-CN:
+  errors:
+    failure:
+      unauthenticated: User unauthenticated!
+      invalid_api_key: Invalid Api Key!
+    wechat:
+      js_code_missing: JS code missing
+      wx_app_error: Wechat MP APP key or secret missing
+      tencent_error: Tencent error or JS code expired
