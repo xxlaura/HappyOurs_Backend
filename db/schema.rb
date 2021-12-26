@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_23_102645) do
+ActiveRecord::Schema.define(version: 2021_12_26_081624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,33 @@ ActiveRecord::Schema.define(version: 2021_12_23_102645) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_summary"
+    t.string "event_description"
+    t.string "location"
+    t.date "event_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "seat_capacity"
+    t.integer "seat_confirmed"
+    t.string "event_type"
+    t.string "event_image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "sign_ups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_sign_ups_on_event_id"
+    t.index ["user_id"], name: "index_sign_ups_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -52,4 +79,7 @@ ActiveRecord::Schema.define(version: 2021_12_23_102645) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "users"
+  add_foreign_key "sign_ups", "events"
+  add_foreign_key "sign_ups", "users"
 end
