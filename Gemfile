@@ -48,7 +48,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures', '~> 1.0'
 
 # authentication
-gem 'jwt'
+# gem 'jwt'
 
 # handle money
 gem 'money-rails', '~>1.12'
