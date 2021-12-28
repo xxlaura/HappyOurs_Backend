@@ -36,6 +36,33 @@ ActiveRecord::Schema.define(version: 2021_12_26_103654) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "event_summary"
+    t.string "event_description"
+    t.string "location"
+    t.date "event_date"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "seat_capacity"
+    t.integer "seat_confirmed"
+    t.string "event_type"
+    t.string "event_image"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "signups", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_signups_on_event_id"
+    t.index ["user_id"], name: "index_signups_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "mp_openid"
     t.string "mp_session_key"
@@ -50,4 +77,7 @@ ActiveRecord::Schema.define(version: 2021_12_26_103654) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "users"
+  add_foreign_key "signups", "events"
+  add_foreign_key "signups", "users"
 end
