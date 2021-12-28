@@ -1,3 +1,3 @@
-class ApplicationSerializer < ActiveModel::Serializer
-  attributes :id
-end
+# class ApplicationSerializer < ActiveModel::Serializer
+#   attributes :id
+# end

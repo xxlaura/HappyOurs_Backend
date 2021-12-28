@@ -1,14 +1,14 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  # skip_before_action :authenticate_user_from_token!, only: [:wx_login]
   URL = "https://api.weixin.qq.com/sns/jscode2session".freeze
   skip_before_action :verify_authenticity_token
-  before_action :find_user, only: [:show, :update]
+  before_action :find_user, only: %i[show update]
 
   def index
     @users = User.all
   end
 
   def show
+    find_user
   end
 
   def find_user
@@ -16,9 +16,15 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def login
-    open_id = wechat_user.fetch('openid')
-    @user = User.find_or_create_by(open_id: open_id)
-
+    p "=========start logging========"
+    p "=========wechat_user========"
+    p wechat_user
+    mp_openid = wechat_user.fetch("openid")
+    p "===== mp_openid ===="
+    p mp_openid
+    @user = User.find_or_create_by(mp_openid: mp_openid)
+    p "@user"
+    p @user
     render json: {
       userId: @user.id,
       currentUser: @user
