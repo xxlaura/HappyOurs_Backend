@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_26_103654) do
+ActiveRecord::Schema.define(version: 2021_12_28_130236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,30 +37,32 @@ ActiveRecord::Schema.define(version: 2021_12_26_103654) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string "event_name"
-    t.string "event_summary"
-    t.string "event_description"
+    t.string "name"
+    t.string "summary"
+    t.string "description"
     t.string "location"
-    t.date "event_date"
-    t.time "start_time"
-    t.time "end_time"
     t.integer "seat_capacity"
-    t.integer "seat_confirmed"
     t.string "event_type"
     t.string "event_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.datetime "begins_at"
+    t.integer "duration"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
-  create_table "signups", force: :cascade do |t|
+  create_table "eventtypes", force: :cascade do |t|
+    t.string "name"
+  end
+
+  create_table "reservations", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "event_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["event_id"], name: "index_signups_on_event_id"
-    t.index ["user_id"], name: "index_signups_on_user_id"
+    t.index ["event_id"], name: "index_reservations_on_event_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -72,12 +74,10 @@ ActiveRecord::Schema.define(version: 2021_12_26_103654) do
     t.string "nickname"
     t.string "avatar"
     t.integer "phone_number"
-    t.integer "signup_event_number"
-    t.integer "host_event_number"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "events", "users"
-  add_foreign_key "signups", "events"
-  add_foreign_key "signups", "users"
+  add_foreign_key "reservations", "events"
+  add_foreign_key "reservations", "users"
 end
