@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
 belongs_to :user
-has_many :sign_ups
+has_many :signups
 
 validates :name, presence: true, uniqueness: true
 # validates :drinks, presence: true

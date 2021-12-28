@@ -4,9 +4,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %i[index create]
       resources :events, only: %i[index create show edit destroy] do
-        resources :sign_ups, only: %i[create show destroy]
+        resources :signups, only: %i[create show destroy]
       end
-      resources :sign_ups, only: %i[create show destroy]
+      resources :signups, only: %i[create show destroy]
     end
     post 'users/wx_login'
   end
