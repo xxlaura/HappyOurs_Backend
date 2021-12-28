@@ -36,6 +36,29 @@ ActiveRecord::Schema.define(version: 2021_12_28_163737) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+  end
+
+  create_table "drinks", force: :cascade do |t|
+    t.string "name"
+    t.string "summary"
+    t.string "description"
+    t.integer "year"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "categories_id", null: false
+    t.index ["categories_id"], name: "index_drinks_on_categories_id"
+  end
+
+  create_table "eventdrinks", force: :cascade do |t|
+    t.bigint "events_id", null: false
+    t.bigint "drinks_id", null: false
+    t.index ["drinks_id"], name: "index_eventdrinks_on_drinks_id"
+    t.index ["events_id"], name: "index_eventdrinks_on_events_id"
+  end
+
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.string "summary"
@@ -49,6 +72,8 @@ ActiveRecord::Schema.define(version: 2021_12_28_163737) do
     t.bigint "user_id", null: false
     t.datetime "begins_at"
     t.integer "duration"
+    t.bigint "eventtypes_id", null: false
+    t.index ["eventtypes_id"], name: "index_events_on_eventtypes_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -74,6 +99,10 @@ ActiveRecord::Schema.define(version: 2021_12_28_163737) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "drinks", "categories", column: "categories_id"
+  add_foreign_key "eventdrinks", "drinks", column: "drinks_id"
+  add_foreign_key "eventdrinks", "events", column: "events_id"
+  add_foreign_key "events", "eventtypes", column: "eventtypes_id"
   add_foreign_key "events", "users"
   add_foreign_key "reservations", "events"
   add_foreign_key "reservations", "users"
