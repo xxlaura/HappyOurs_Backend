@@ -1,0 +1,9 @@
+{
+  "name": "happyours_backend",
+  "scripts": {
+    "dokku": {
+      "predeploy": "bundle exec rake assets:precompile",
+      "postdeploy": "bundle exec rake db:migrate"
+    }
+  }
+}
