@@ -9,5 +9,5 @@ validates :begins_at, presence: true
 validates :seat_capacity, presence: true
 validates :event_image, presence: true
 
-
+  include PgSearch::Model
 end

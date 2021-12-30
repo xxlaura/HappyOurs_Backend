@@ -3,7 +3,7 @@ class Api::V1::EventsController < ApplicationController
 
 
     def index
-        # @events = Event.all
+        @events = Event.all
     end
 
     def create
@@ -17,7 +17,6 @@ class Api::V1::EventsController < ApplicationController
 
     end
 
-    
     private
     
     def find_event
