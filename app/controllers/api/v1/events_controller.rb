@@ -3,7 +3,11 @@ class Api::V1::EventsController < ApplicationController
 
 
     def index
-        @events = Event.all
+      if params[:query].present?
+        Event.search_by_name_and_drink
+      else
+        @movies = Event.all
+      end
     end
 
     def create
@@ -18,7 +22,7 @@ class Api::V1::EventsController < ApplicationController
     end
 
     private
-    
+
     def find_event
       @event = Event.find(params[:id])
     end
