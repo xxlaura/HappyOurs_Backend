@@ -13,6 +13,7 @@ class Api::V1::EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user = current_user
     @event.save!
+    @event.update(published: true)
     render json: @event
   end
 
