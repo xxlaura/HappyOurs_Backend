@@ -13,7 +13,8 @@ class Event < ApplicationRecord
 
   # multisearchable against: [:name]
   include PgSearch::Model
-  pg_search_scope :search_by_event_and_drink, against: :name,
+  pg_search_scope :search_by_event_and_drink,
+  against: %i[name summary discription],
   associated_against: {
     drink: %i[name summary discription]
   },
