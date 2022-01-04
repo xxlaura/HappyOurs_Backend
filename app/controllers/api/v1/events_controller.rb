@@ -13,6 +13,7 @@ class Api::V1::EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.user = current_user
     @event.save!
+    @event.update(published: true)
     render json: @event
   end
 
@@ -35,6 +36,6 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def event_params
-      params.require(:event).permit(:name, :location, :event_date, :start_time, :duration, :seat_capacity, :event_image)
+      params.require(:event).permit(:name, :location, :begins_at, :duration, :capacity, :event_image)
   end
 end
