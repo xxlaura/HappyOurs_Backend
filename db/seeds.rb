@@ -18,7 +18,7 @@ Eventtype.create(
 
 10.times do
   Event.create(
-    user_id: rand(1..3),
+    # user_id: rand(1..3),
     name: Faker::TvShows::TheExpanse.ship,
     summary: Faker::TvShows::TheExpanse.quote,
     description: Faker::TvShows::TheExpanse.quote,
@@ -26,7 +26,7 @@ Eventtype.create(
     begins_at: Faker::Date.between(from: '2021-01-01', to: '2022-12-31'),
     duration: rand(100..200),
     # end_time: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now,
-    seat_capacity: rand(0..20),
+    capacity: rand(0..20),
     event_image: "PlaceholderImageURL",
     published: true,
     eventtypes_id: 1
@@ -41,4 +41,3 @@ p "Seeding all"
             #     )
             # end
         # event.save!
-
