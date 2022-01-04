@@ -1,34 +1,32 @@
 class Api::V1::EventsController < ApplicationController
-    before_action :find_event, only: %i[show]
+  before_action :find_event, only: %i[show]
 
-
-    def index
-      if params[:query].present?
-        Event.search_by_name_and_drink
-      else
-        @movies = Event.all
-      end
+  def index
+    if params[:query].present?
+      Event.search_by_event_and_drink
+    else
+      @events = Event.all
     end
+  end
 
-    def create
-        @event = Event.new(permitted_params)
-        @event.user = current_user
-        @event.save!
-        render json: @event
-    end
+  def create
+    @event = Event.new(permitted_params)
+    @event.user = current_user
+    @event.save!
+    render json: @event
+  end
 
-    def show
+  def show
+    find_event
+  end
 
-    end
+  private
 
-    private
+  def find_event
+    @event = Event.find(params[:id])
+  end
 
-    def find_event
-      @event = Event.find(params[:id])
-    end
-
-    def permitted_params
-        params.require(:event).permit(:name, :location, :event_date, :start_time, :end_time, :seat_capacity, :event_image)
-    end
-
+  def permitted_params
+    params.require(:event).permit(:name, :location, :event_date, :start_time, :end_time, :seat_capacity, :event_image)
+  end
 end
