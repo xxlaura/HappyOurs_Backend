@@ -2,11 +2,11 @@ class Api::V1::EventsController < ApplicationController
   before_action :find_event, only: %i[show update destroy]
 
   def index
-    if params[:query].present?
-      Event.search_by_event_and_drink
-    else
-      @events = Event.all
-    end
+    # if params[:query].present?
+    #   @events = Event.search_by_event_and_drink("lucien")
+    # else
+    @events = Event.all
+    # end
   end
 
   def create
@@ -17,7 +17,6 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def show
-    find_event
   end
 
   def update
@@ -35,6 +34,6 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def event_params
-      params.require(:event).permit(:name, :location, :event_date, :start_time, :duration, :seat_capacity, :event_image)
+    params.require(:event).permit(:name, :location, :begins_at, :duration, :capacity, :event_image)
   end
 end
