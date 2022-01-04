@@ -11,8 +11,6 @@ class Event < ApplicationRecord
   validates :event_image, presence: true
   # validates :drinks, presence: true
 
-  # multisearchable against: [:name]
-  include PgSearch::Model
   pg_search_scope :search_by_event_and_drink,
   against: %i[name summary discription],
   associated_against: {
