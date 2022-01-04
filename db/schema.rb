@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_04_124651) do
+ActiveRecord::Schema.define(version: 2022_01_04_151622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,11 +52,11 @@ ActiveRecord::Schema.define(version: 2022_01_04_124651) do
     t.index ["categories_id"], name: "index_drinks_on_categories_id"
   end
 
-  create_table "eventdrinks", force: :cascade do |t|
-    t.bigint "events_id", null: false
-    t.bigint "drinks_id", null: false
-    t.index ["drinks_id"], name: "index_eventdrinks_on_drinks_id"
-    t.index ["events_id"], name: "index_eventdrinks_on_events_id"
+  create_table "event_drinks", force: :cascade do |t|
+    t.bigint "event_id", null: false
+    t.bigint "drink_id", null: false
+    t.index ["drink_id"], name: "index_event_drinks_on_drink_id"
+    t.index ["event_id"], name: "index_event_drinks_on_event_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -65,7 +65,6 @@ ActiveRecord::Schema.define(version: 2022_01_04_124651) do
     t.string "description"
     t.string "location"
     t.integer "capacity"
-    t.string "event_type"
     t.string "event_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -111,8 +110,8 @@ ActiveRecord::Schema.define(version: 2022_01_04_124651) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "drinks", "categories", column: "categories_id"
-  add_foreign_key "eventdrinks", "drinks", column: "drinks_id"
-  add_foreign_key "eventdrinks", "events", column: "events_id"
+  add_foreign_key "event_drinks", "drinks"
+  add_foreign_key "event_drinks", "events"
   add_foreign_key "events", "eventtypes", column: "eventtypes_id"
   add_foreign_key "events", "users"
   add_foreign_key "reservations", "events"
