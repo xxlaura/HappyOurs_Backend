@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: %i[index show update create]
       post '/login', to: 'users#login'
+      post '/events/search', to: 'events#search'
+      get '/events/search', to: 'events#search'
       resources :events, only: %i[index create show edit destroy] do
         resources :reservations, only: %i[create show destroy]
       end
