@@ -11,7 +11,7 @@ class Api::V1::ReservationsController < ApplicationController
     def create
         @reservation = @event.reservation.new(reservation_params)
         @reservation.user = current_user
-        @reservation.save!       
+        @reservation.save!
     end
 
     def show
