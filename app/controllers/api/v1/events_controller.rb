@@ -2,11 +2,15 @@ class Api::V1::EventsController < ApplicationController
   before_action :find_event, only: %i[show update destroy]
 
   def index
-    # if params[:query].present?
-      @events = Event.search_by_event_and_drink("Anubis")
-    # else
-    # @events = Event.all
-    # end
+    @events = Event.all
+  end
+
+  def search
+    if params[:query].present?
+      @events = Event.search_by_event_and_drink(params[:query])
+    else
+      index
+    end
   end
 
   def create
