@@ -3,9 +3,9 @@ class Api::V1::EventsController < ApplicationController
 
   def index
     # if params[:query].present?
-    #   @events = Event.search_by_event_and_drink("lucien")
+      @events = Event.search_by_event_and_drink("Anubis")
     # else
-    @events = Event.all
+    # @events = Event.all
     # end
   end
 
