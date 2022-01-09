@@ -1,4 +1,4 @@
-class Api::V1::EventsController < ApplicationController
+class Api::V1::EventsController < Api::V1::BaseController
   before_action :find_event, only: %i[show update destroy]
 
   def index
@@ -39,6 +39,6 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :location, :begins_at, :duration, :capacity, :event_image)
+    params.require(:event).permit(:name,:summary,:location, :begins_at, :duration, :capacity, :event_image)
   end
 end
