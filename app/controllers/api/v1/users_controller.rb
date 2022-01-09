@@ -3,12 +3,11 @@ class Api::V1::UsersController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
   before_action :find_user, only: %i[show update]
 
-  def index
-    @users = User.all
-  end
 
   def show
     find_user
+    @reservations = Reservation.all
+    @reservations.user = current_user
   end
 
   def find_user
@@ -17,8 +16,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def login
     p "=========start logging========"
+    # p "=========wechat_params========"
+    # p wechat_params
+    # p "=========wechat_params========"
     p "=========wechat_user========"
     p wechat_user
+    p "=========wechat_user========"
+
     mp_openid = wechat_user.fetch("openid")
     p "===== mp_openid ===="
     p mp_openid
@@ -48,6 +52,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       js_code: params[:code],
       grant_type: "authorization_code"
     }
+
 
     @wechat_response ||= RestClient.get(URL, params: wechat_params)
     @wechat_user ||= JSON.parse(@wechat_response.body)

@@ -3,4 +3,5 @@ json.reservation do
     json.user_id @reservation.user_id
     json.event_id @reservation.event_id
     json.phonenumber @reservation.phonenumber
+    json.seat @reservation.seat
 end

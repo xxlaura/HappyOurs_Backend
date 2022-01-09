@@ -2,9 +2,10 @@ class Event < ApplicationRecord
   include PgSearch::Model
 
   belongs_to :user
+  belongs_to :event_type
   has_many :reservations
   has_many :event_drinks, class_name: "EventDrink"
-  has_many :drinks, through: :event_drinks, class_name: "Drink"
+  has_many :drinks, through: :event_drink, class_name: "Drink"
 
   validates :name, presence: true, uniqueness: true
   validates :location, presence: true
