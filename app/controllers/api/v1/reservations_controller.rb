@@ -4,10 +4,6 @@ class Api::V1::ReservationsController < ApplicationController
       @reservations = @event.reservations
   end
 
-  # def new
-  #     @reservation = @event.reservation.new
-  # end
-
   def create
     @reservation = Reservation.new(reservation_params)
     p @reservation
@@ -23,7 +19,7 @@ class Api::V1::ReservationsController < ApplicationController
   private
 
   def reservation_params
-    params.require(:reservation).permit(:phonenumber)
+      params.require(:reservation).permit(:phonenumber, :seat)
   end
-
+  
 end

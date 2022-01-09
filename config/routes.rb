@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :users, only: %i[index show update create]
+      resources :users, only: %i[show update create]
       post '/login', to: 'users#login'
       post '/events/search', to: 'events#search'
       get '/events/search', to: 'events#search'

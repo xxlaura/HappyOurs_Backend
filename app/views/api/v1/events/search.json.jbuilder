@@ -11,7 +11,7 @@ json.events do
     :user_id,
     :begins_at,
     :duration,
-    :eventtypes_id,
+    :event_type_id,
     :published
   end
 end
