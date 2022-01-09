@@ -7,11 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Event.destroy_all
-Event_type.destroy_all
+EventType.destroy_all
 
 p "Destroyed all events"
 
-Event_type.create(
+
+EventType.create(
   id: 1,
   name: 'tasting'
 )
