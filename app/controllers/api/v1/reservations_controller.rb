@@ -22,7 +22,7 @@ class Api::V1::ReservationsController < ApplicationController
     private
 
     def reservation_params
-        params.require(:reservation).permit(:phonenumber)
+        params.require(:reservation).permit(:phonenumber, :seat)
     end
 
 end
