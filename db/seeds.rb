@@ -42,7 +42,6 @@ gin_tasting = Event.create(
   location: 'Cottons',
   begins_at: '2022-02-01',
   duration: rand(100..200),
-  # end_time: Faker::Time.between(from: DateTime.now - 1, to: DateTime.now,
   capacity: rand(0..20),
   event_image: "PlaceholderImageURL",
   published: true,
