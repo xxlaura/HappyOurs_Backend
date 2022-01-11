@@ -1,7 +1,7 @@
-class Api::V1::ReservationsController < ApplicationController
+class Api::V1::ReservationsController < Api::V1::BaseController
 
   def index
-      @reservations = @event.reservations
+    @reservations = @event.reservations
   end
 
   def create
@@ -21,5 +21,5 @@ class Api::V1::ReservationsController < ApplicationController
   def reservation_params
       params.require(:reservation).permit(:phonenumber, :seat)
   end
-  
+
 end
