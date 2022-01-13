@@ -1,6 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
   URL = "https://api.weixin.qq.com/sns/jscode2session".freeze
-  skip_before_action :verify_authenticity_token
+
   before_action :find_user, only: %i[show update]
 
 
@@ -47,14 +47,15 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def wechat_user
     wechat_params = {
-      appId: Rails.application.credentials[:wx_app_id],
+      appid: Rails.application.credentials[:wx_app_id],
       secret: Rails.application.credentials[:wx_secret_id],
       js_code: params[:code],
       grant_type: "authorization_code"
     }
-
+    p "================1", wechat_params
 
     @wechat_response ||= RestClient.get(URL, params: wechat_params)
+    p "================2", @wechat_response
     @wechat_user ||= JSON.parse(@wechat_response.body)
   end
 end
