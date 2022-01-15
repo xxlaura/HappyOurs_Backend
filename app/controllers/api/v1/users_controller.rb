@@ -1,4 +1,6 @@
 class Api::V1::UsersController < Api::V1::BaseController
+  skip_before_action :authenticate_user!, only: [:login]
+
   URL = "https://api.weixin.qq.com/sns/jscode2session".freeze
 
   before_action :find_user, only: %i[show update]
@@ -15,23 +17,22 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def login
-    p "=========start logging========"
-    # p "=========wechat_params========"
-    # p wechat_params
-    # p "=========wechat_params========"
-    p "=========wechat_user========"
+    p "-----------------------START LOGGING-----------------------"
+    p "-----------------------WECHAT USER-----------------------"
     p wechat_user
-    p "=========wechat_user========"
+    p "-----------------------WECHAT USER-----------------------"
 
     mp_openid = wechat_user.fetch("openid")
-    p "===== mp_openid ===="
+    p "-----------------------MP-OPENID-----------------------"
     p mp_openid
+    p "-----------------------MP-OPENID-----------------------"
     @user = User.find_or_create_by(mp_openid: mp_openid)
     p "@user"
     p @user
     render json: {
       userId: @user.id,
-      currentUser: @user
+      currentUser: @user,
+      headers: {"X-USER-ID" => @user.id}
     }
   end
 
@@ -52,10 +53,14 @@ class Api::V1::UsersController < Api::V1::BaseController
       js_code: params[:code],
       grant_type: "authorization_code"
     }
-    p "================1", wechat_params
-
+    p "-----------------------WECHAT_PARAMS-----------------------"
+    p wechat_params
+    p "-----------------------WECHAT_PARAMS-----------------------"
+    p "-----------------------WECHAT_RESPONSE-----------------------"
     @wechat_response ||= RestClient.get(URL, params: wechat_params)
-    p "================2", @wechat_response
+    p "-----------------------WECHAT_RESPONSE-----------------------"
+    p "-----------------------WECHAT_USER-----------------------"
     @wechat_user ||= JSON.parse(@wechat_response.body)
+    p "-----------------------WECHAT_USER-----------------------"
   end
 end
