@@ -6,7 +6,6 @@ json.events do
     :description,
     :location,
     :capacity,
-    # :event_type,
     :event_image,
     :user_id,
     :begins_at,

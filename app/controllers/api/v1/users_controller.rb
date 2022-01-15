@@ -21,7 +21,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     p "-----------------------WECHAT USER-----------------------"
     p wechat_user
     p "-----------------------WECHAT USER-----------------------"
-
     mp_openid = wechat_user.fetch("openid")
     p "-----------------------MP-OPENID-----------------------"
     p mp_openid

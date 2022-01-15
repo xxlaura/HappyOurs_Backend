@@ -15,13 +15,13 @@ class Api::V1::BaseController < ApplicationController
   # end
 
   def current_user
-    p "-------------THIS IS CURRENT USER-------------"
+    # p "-------------THIS IS CURRENT USER-------------"
     p "-------------USER HEADERS-------------"
-    # p request.headers
+    p request.headers
     p "-------------USER HEADERS-------------"
     user_id = request.headers['X-USER-ID']&.split(' ')&.last.to_i
     @current_user ||= User.find_by(id: user_id) if user_id
-    p "-------------THIS IS CURRENT USER-------------"
+    # p "-------------THIS IS CURRENT USER-------------"
   end
 
   def not_found(exception)
