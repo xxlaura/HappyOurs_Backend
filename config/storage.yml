@@ -14,4 +14,4 @@ aliyun:
   endpoint: <%= Rails.application.credentials.dig(:aliyun_oss, :endpoint) %>
   path: <%= Rails.application.credentials.dig(:aliyun_oss, :path) %>
   # Bucket mode: [public, private], default: public
-  public: true
+  mode: "public"
