@@ -1,5 +1,6 @@
 class Event < ApplicationRecord
   include PgSearch::Model
+  has_one_attached :event_image
 
   belongs_to :user
   belongs_to :event_type
