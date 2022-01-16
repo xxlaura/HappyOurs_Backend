@@ -2,7 +2,16 @@ class Api::V1::EventsController < Api::V1::BaseController
   before_action :find_event, only: %i[show update destroy]
 
   def index
-    @events = Event.all
+    # @events = Event.all
+    @upcoming_events = Event.where('begins_at > ?', DateTime.now).order(begins_at: :asc)
+    # p "upcoming events", @upcoming_events
+    @popular_events = Event
+      .left_joins(:reservations)
+      .group(:id)
+      .order('SUM(reservations.seat) DESC')
+  p "popular events", @popular_events
+    # @events.each do |event|
+    #   @event.reservations.count
   end
 
   def search
