@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_130225) do
+ActiveRecord::Schema.define(version: 2022_01_16_080044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 2022_01_13_130225) do
     t.string "description"
     t.string "location"
     t.integer "capacity"
-    t.string "event_image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -79,6 +78,7 @@ ActiveRecord::Schema.define(version: 2022_01_13_130225) do
     t.boolean "published", default: false
     t.float "longitude"
     t.float "latitude"
+    t.integer "drink_type"
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end

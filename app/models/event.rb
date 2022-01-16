@@ -1,6 +1,7 @@
 class Event < ApplicationRecord
   include PgSearch::Model
-  has_one_attached :event_image
+  has_many_attached :event_images
+  enum drink_type: [:whiskey, :vodka, :martini, :beer, :gin, :mixed, :wine, :tea, :coffee, :other]
 
   belongs_to :user
   belongs_to :event_type
@@ -24,4 +25,12 @@ class Event < ApplicationRecord
   using: {
     tsearch: { prefix: true }
   }
+
+  def event_image_urls
+    if event_images.attached?
+      event_images.map do |image|
+        image.service_url
+      end
+    end
+  end
 end
