@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Event.destroy_all
-EventType.destroy_all
+# EventType.destroy_all
 
 p "Destroyed all events"
 
@@ -30,7 +30,7 @@ EventType.create(
     capacity: rand(0..20),
     event_image: "PlaceholderImageURL",
     published: true,
-    event_type_id: 1
+    # event_type_id: 1
   )
   event.save!
 end
@@ -46,7 +46,7 @@ gin_tasting = Event.create(
   capacity: rand(0..20),
   event_image: "PlaceholderImageURL",
   published: true,
-  event_type_id: 1
+  # event_type_id: 1
 )
 gin_tasting.save!
 
@@ -64,7 +64,7 @@ wine_tasting = Event.create(
     capacity: rand(0..20),
     event_image: "PlaceholderImageURL",
     published: true,
-    event_type_id: 1
+    # event_type_id: 1
   )
 wine_tasting.save!
 
@@ -82,7 +82,7 @@ tea_tasting = Event.create(
     capacity: rand(0..20),
     event_image: "PlaceholderImageURL",
     published: true,
-    event_type_id: 1
+    # event_type_id: 1
   )
 tea_tasting.save!
 

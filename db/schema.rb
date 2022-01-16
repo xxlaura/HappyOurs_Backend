@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_13_130225) do
+ActiveRecord::Schema.define(version: 2022_01_16_043120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,11 +75,9 @@ ActiveRecord::Schema.define(version: 2022_01_13_130225) do
     t.bigint "user_id", null: false
     t.datetime "begins_at"
     t.integer "duration"
-    t.bigint "event_type_id", null: false
     t.boolean "published", default: false
     t.float "longitude"
     t.float "latitude"
-    t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -115,7 +113,6 @@ ActiveRecord::Schema.define(version: 2022_01_13_130225) do
   add_foreign_key "drinks", "categories", column: "categories_id"
   add_foreign_key "event_drinks", "drinks"
   add_foreign_key "event_drinks", "events"
-  add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
   add_foreign_key "reservations", "events"
   add_foreign_key "reservations", "users"

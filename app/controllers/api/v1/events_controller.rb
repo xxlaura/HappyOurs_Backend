@@ -15,10 +15,16 @@ class Api::V1::EventsController < Api::V1::BaseController
 
   def create
     @event = Event.new(event_params)
-    @event.user = current_user
-    @event.save!
-    @event.update(published: true)
-    render json: @event
+    @event.user = User.find(1)
+    # p @event.user = current_user
+    @event.save
+    render json: {event_id: @event.id}, status: :created
+    # @event.published = true
+    # @event.event_type = EventType.first
+    # @event.save!
+    # @event.save!
+    # @event.update(published: true)
+    # render json: @event, status: :created
   end
 
   def show
@@ -39,6 +45,6 @@ class Api::V1::EventsController < Api::V1::BaseController
   end
 
   def event_params
-    # params.require(:event).permit(:name,:summary,:location, :latitude, :longitude, :begins_at, :duration, :capacity, :event_image)
+    params.require(:event).permit(:name, :summary, :location, :latitude, :longitude, :begins_at, :duration, :capacity, :event_image, :event_type, :published)
   end
 end

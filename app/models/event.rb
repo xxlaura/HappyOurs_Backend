@@ -3,7 +3,7 @@ class Event < ApplicationRecord
   has_one_attached :event_image
 
   belongs_to :user
-  belongs_to :event_type
+  # belongs_to :event_type
   has_many :reservations
   has_many :event_drinks, class_name: "EventDrink"
   has_many :drinks, through: :event_drink, class_name: "Drink"
