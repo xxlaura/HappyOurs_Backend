@@ -7,10 +7,11 @@ json.events do
     :description,
     :location,
     :capacity,
-    :event_image,
+    :event_image_urls,
     :user_id,
     :begins_at,
     :duration,
+    :drink_type,
     :event_type_id,
     :published
   end
