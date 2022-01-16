@@ -18,12 +18,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def login
     p "-----------------------START LOGGING-----------------------"
-    p "-----------------------WECHAT USER-----------------------"
-    p wechat_user
-    p "-----------------------WECHAT USER-----------------------"
+    # p "-----------------------WECHAT USER-----------------------"
+    # p wechat_user
+    # p "-----------------------WECHAT USER-----------------------"
+    p "we are here line 24"
     mp_openid = wechat_user.fetch("openid")
     p "-----------------------MP-OPENID-----------------------"
-    p mp_openid
+    p "we are here line 27", mp_openid
     p "-----------------------MP-OPENID-----------------------"
     @user = User.find_or_create_by(mp_openid: mp_openid)
     p "@user"
@@ -56,10 +57,13 @@ class Api::V1::UsersController < Api::V1::BaseController
     p wechat_params
     p "-----------------------WECHAT_PARAMS-----------------------"
     p "-----------------------WECHAT_RESPONSE-----------------------"
+    p "we are here line 59"
     @wechat_response ||= RestClient.get(URL, params: wechat_params)
+    p @wechat_response
     p "-----------------------WECHAT_RESPONSE-----------------------"
     p "-----------------------WECHAT_USER-----------------------"
     @wechat_user ||= JSON.parse(@wechat_response.body)
-    p "-----------------------WECHAT_USER-----------------------"
+    # p @wechat_user
+    # p "-----------------------WECHAT_USER-----------------------"
   end
 end
