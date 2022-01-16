@@ -1,27 +1,28 @@
 class Api::V1::BaseController < ApplicationController
   rescue_from StandardError,                with: :internal_server_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   skip_before_action :verify_authenticity_token
   
   private
 
-  # def authenticate_user!
-  #   current_user || invalid_authentication
-  # end
+  def authenticate_user!
+    current_user || invalid_authentication
+  end
 
-  # def invaild_authentication
-  #   render json: { error: { message: "USER AUTHENTICATION FAILED!", code: nil } }, status: :unauthorized
-  # end
+  def invaild_authentication
+    render json: { error: { message: "USER AUTHENTICATION FAILED!", code: nil } }, status: :unauthorized
+  end
 
   def current_user
-    p "-------------THIS IS CURRENT USER-------------"
+    # p "-------------THIS IS CURRENT USER-------------"
     p "-------------USER HEADERS-------------"
     # p request.headers
     p "-------------USER HEADERS-------------"
     user_id = request.headers['X-USER-ID']&.split(' ')&.last.to_i
+    p "-------------i am line 23-------------", user_id
     @current_user ||= User.find_by(id: user_id) if user_id
-    p "-------------THIS IS CURRENT USER-------------"
+    # p "-------------THIS IS CURRENT USER-------------"
   end
 
   def not_found(exception)
