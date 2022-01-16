@@ -7,6 +7,7 @@ class Api::V1::ReservationsController < Api::V1::BaseController
   def create
     @reservation = Reservation.new(reservation_params)
     p @reservation
+    @reservation.event = Event.find(params[:event_id])
     @reservation.user = current_user
     @reservation.save!
   end
@@ -19,7 +20,7 @@ class Api::V1::ReservationsController < Api::V1::BaseController
   private
 
   def reservation_params
-      # params.require(:reservation).permit(:phonenumber, :seat)
+      params.require(:reservation).permit(:phonenumber, :seat)
   end
 
 end

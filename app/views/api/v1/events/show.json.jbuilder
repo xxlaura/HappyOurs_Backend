@@ -12,4 +12,4 @@
 # end
 
 #drink
-json.extract! @event, :id, :name, :summary, :description, :location, :capacity, :event_image, :begins_at, :duration
+json.extract! @event, :id, :name, :summary, :description, :location, :capacity, :begins_at, :duration
