@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  skip_before_action :authenticate_user!, only: [:login]
+  # skip_before_action :authenticate_user!, only: [:login]
 
   URL = "https://api.weixin.qq.com/sns/jscode2session".freeze
 
@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def login
     p "-----------------------START LOGGING-----------------------"
-    # p "-----------------------WECHAT USER-----------------------"
+    p "-----------------------WECHAT USER-----------------------"
     # p wechat_user
     # p "-----------------------WECHAT USER-----------------------"
     p "we are here line 24"

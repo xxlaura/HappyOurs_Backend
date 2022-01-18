@@ -19,9 +19,9 @@ class Event < ApplicationRecord
 
   pg_search_scope :search_by_event_and_drink,
   against: %i[name summary description],
-  associated_against: {
-    drinks: %i[name summary description]
-  },
+  # associated_against: {
+  #   drinks: %i[name summary description]
+  # },
   using: {
     tsearch: { prefix: true }
   }

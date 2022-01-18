@@ -1,3 +1,5 @@
+require 'time'
+
 class Api::V1::EventsController < Api::V1::BaseController
   before_action :find_event, only: %i[show update destroy]
 
@@ -23,10 +25,25 @@ class Api::V1::EventsController < Api::V1::BaseController
   end
 
   def create
+    p "========================="
+    find_user = params[:userId]
+    find_date = params[:date]
+    p find_date
+    find_start = params[:startTime]
+    p find_start
+    find_begins_at = find_date + " " + find_start
+    p find_begins_at
+    begins_at = Time.parse(find_begins_at)
+    p begins_at
+    p "========================="
     @event = Event.new(event_params)
-    @event.user = current_user
+    p "========================="
+    @event.user = User.find(find_user)
+    @event.event_type = EventType.find(1)
+    # @event.begins_at = begins_at
+    p "========================="
     @event.save!
-    @event.update(published: true)
+    # @event.update(published: true)
     render json: @event
   end
 
