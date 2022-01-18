@@ -5,11 +5,17 @@ class Api::V1::ReservationsController < Api::V1::BaseController
   end
 
   def create
+    p "========================="
+    find_user = params[:userId]
+    find_event = params[:event_id]
+    p "========================="
     @reservation = Reservation.new(reservation_params)
-    p @reservation
-    @reservation.event = Event.find(params[:event_id])
-    @reservation.user = current_user
+    p "========================="
+    @reservation.event = Event.find(find_event)
+    @reservation.user = User.find(find_user)
+    p "========================="
     @reservation.save!
+    # @event.update(published: true)
   end
 
   def show
@@ -20,7 +26,7 @@ class Api::V1::ReservationsController < Api::V1::BaseController
   private
 
   def reservation_params
-      params.require(:reservation).permit(:phonenumber, :seat)
+    params.require(:reservation).permit(:phonenumber, :seat)
   end
 
 end
