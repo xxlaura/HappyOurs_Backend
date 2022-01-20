@@ -7,14 +7,12 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def show
-    find_user
-    @reservations = Reservation.all
-    @reservations.user = current_user
+    # find_user
+    # @reservations = Reservation.all
+    # @reservations.user = current_user
   end
 
-  def find_user
-    @user = User.find(params[:id])
-  end
+
 
   def login
     p "-----------------------START LOGGING-----------------------"
@@ -46,6 +44,10 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
 
+  def find_user
+    @user = User.find(params[:id])
+  end
+
   def wechat_user
     wechat_params = {
       appid: Rails.application.credentials[:wx_app_id],
@@ -66,4 +68,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     # p @wechat_user
     # p "-----------------------WECHAT_USER-----------------------"
   end
+
+
 end
