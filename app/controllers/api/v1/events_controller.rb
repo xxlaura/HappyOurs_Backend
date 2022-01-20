@@ -1,7 +1,7 @@
 require 'time'
 
 class Api::V1::EventsController < Api::V1::BaseController
-  before_action :find_event, only: %i[show update destroy]
+  before_action :find_event, only: %i[show update destroy new_images]
 
   def index
     # @events = Event.all
@@ -56,6 +56,18 @@ class Api::V1::EventsController < Api::V1::BaseController
 
   def destroy
     @event.destroy
+  end
+
+
+  def new_images
+    puts params
+    puts "======================================"
+    images = params[:eventsPhoto]
+    p images
+    p @event
+    @event.event_images.attach(images)
+    render json: {status: 200, msg: "Photo attached"} if @event.save
+    # puts "---------------ERROR-----------------"
   end
 
   private
