@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       post '/login', to: 'users#login'
       post '/events/search', to: 'events#search'
       get '/events/search', to: 'events#search'
+      post "events/:id/new_images", to: "events#new_images"
+
       resources :events, only: %i[index create show edit destroy] do
         resources :reservations, only: %i[create show destroy]
       end
