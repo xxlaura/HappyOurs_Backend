@@ -1,8 +1,5 @@
 class Api::V1::ReservationsController < Api::V1::BaseController
 
-  def index
-    @reservations = @event.reservations
-  end
 
   def create
     p "========================="
@@ -18,9 +15,9 @@ class Api::V1::ReservationsController < Api::V1::BaseController
     # @event.update(published: true)
   end
 
-  def show
-    @reservations = @event.reservations.find(params[:id])
-  end
+  # def show
+  #   @reservations = @event.reservations.find(params[:id])
+  # end
 
 
   private
