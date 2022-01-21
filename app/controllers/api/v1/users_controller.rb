@@ -7,9 +7,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
 
   def show
-    # find_user
-    # @reservations = Reservation.all
-    # @reservations.user = current_user
+    @events_as_goer = @user.reservations.joins(:event)
+    p @events_as_goer
   end
 
 
