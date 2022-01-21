@@ -28,22 +28,17 @@ class Api::V1::EventsController < Api::V1::BaseController
     p "========================="
     find_user = params[:userId]
     find_date = params[:date]
-    p find_date
     find_start = params[:startTime]
     p find_start
-    # find_end = params[:endTime]
-    # get_duration = find_end - find_start
     find_begins_at = find_date + " " + find_start
     p find_begins_at
     begins_at = Time.parse(find_begins_at)
-    p begins_at
     p "========================="
     @event = Event.new(event_params)
     p "========================="
     @event.user = User.find(find_user)
     @event.event_type = EventType.find(1)
     @event.begins_at = begins_at
-    # @event.duration = get_duration
     p "========================="
     @event.save!
     # @event.update(published: true)
@@ -60,7 +55,6 @@ class Api::V1::EventsController < Api::V1::BaseController
   def destroy
     @event.destroy
   end
-
 
   def new_images
     puts params
