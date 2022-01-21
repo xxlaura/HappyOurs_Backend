@@ -1,7 +1,7 @@
 json.partial! 'event', event: @event
- if @event.begins_at != nil
+if @event.begins_at != nil
     json.datetime @event.begins_at.strftime("%Z %A %e %b %Y %H:%M")
-  end
+end
 
 if @event.duration != nil
   json.hr @event.duration/60
