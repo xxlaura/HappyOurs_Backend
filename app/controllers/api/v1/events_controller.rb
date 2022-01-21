@@ -31,6 +31,8 @@ class Api::V1::EventsController < Api::V1::BaseController
     p find_date
     find_start = params[:startTime]
     p find_start
+    find_end = params[:endTime]
+    get_duration = find_end - find_start
     find_begins_at = find_date + " " + find_start
     p find_begins_at
     begins_at = Time.parse(find_begins_at)
@@ -40,7 +42,8 @@ class Api::V1::EventsController < Api::V1::BaseController
     p "========================="
     @event.user = User.find(find_user)
     @event.event_type = EventType.find(1)
-    # @event.begins_at = begins_at
+    @event.begins_at = begins_at
+    @event.duration = get_duration
     p "========================="
     @event.save!
     # @event.update(published: true)
@@ -77,6 +80,6 @@ class Api::V1::EventsController < Api::V1::BaseController
   end
 
   def event_params
-    params.require(:event).permit(:name, :summary, :location, :latitude, :longitude, :begins_at, :duration, :capacity, :drink_type, event_images:[])
+    params.require(:event).permit(:name, :summary, :location, :latitude, :longitude, :date, :startTime, :begins_at, :duration, :capacity, :drink_type, event_images:[])
   end
 end
