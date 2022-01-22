@@ -7,6 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require "open-uri"
 
+Reservation.destroy_all
 Event.destroy_all
 EventType.destroy_all
 
@@ -22,7 +23,7 @@ wine_tasting = Event.create(
   summary: 'This is a tasting event for Wine',
   description: 'This is a tasting event for Wine. We love Wine',
   location: 'Cottons',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
@@ -40,7 +41,7 @@ gin_tasting = Event.create(
   summary: 'This is a tasting event for Gin',
   description: 'This is a tasting event for Gin. We love Gin',
   location: 'Cottons',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
@@ -57,7 +58,7 @@ coffee_tasting = Event.create(
   summary: 'This is a tasting event for Coffee',
   description: 'This is a tasting event for Coffee. We love Coffee',
   location: 'Coffee Is',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
@@ -74,7 +75,7 @@ tea_tasting = Event.create(
   summary: 'This is a tasting event for Tea',
   description: 'This is a tasting event for Tea. We love Tea',
   location: 'Harrods',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
@@ -91,7 +92,7 @@ beer_tasting = Event.create(
   summary: 'This is a tasting event for Beer',
   description: 'This is a tasting event for Beer. We love Beer',
   location: 'Boxing Cat',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
@@ -108,7 +109,7 @@ mulledwine_tasting = Event.create(
   summary: 'This is a tasting event for Mulled Wine',
   description: 'This is a tasting event for Mulled Wine. We love Mulled Wine',
   location: 'Bistro 11',
-  begins_at: Faker::Date.between(from: '2021-02-01', to: '2022-12-31'),
+  begins_at: Faker::Date.between(from: '2021-01-22', to: '2022-01-31'),
   duration: rand(100..200),
   capacity: rand(0..20),
   published: true,
