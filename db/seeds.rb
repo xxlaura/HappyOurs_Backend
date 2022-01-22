@@ -13,12 +13,11 @@ EventType.destroy_all
 p "Destroyed all events"
 
 EventType.create(
-  id: 1,
   name: 'tasting'
 )
 
 wine_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Wine Tasting',
   summary: 'This is a tasting event for Wine',
   description: 'This is a tasting event for Wine. We love Wine',
@@ -28,7 +27,7 @@ wine_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'wine',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80')
 wine_tasting.event_images.attach(io: file, filename: 'wine.png', content_type: 'image/png')
@@ -36,7 +35,7 @@ p 'wine_tasting seeded'
 
 
 gin_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Gin Tasting',
   summary: 'This is a tasting event for Gin',
   description: 'This is a tasting event for Gin. We love Gin',
@@ -46,14 +45,14 @@ gin_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'gin',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1551538827-9c037cb4f32a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=930&q=80')
 gin_tasting.event_images.attach(io: file, filename: 'gin.png', content_type: 'image/png')
 p 'gin_tasting seeded'
 
 coffee_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Coffee Tasting',
   summary: 'This is a tasting event for Coffee',
   description: 'This is a tasting event for Coffee. We love Coffee',
@@ -63,14 +62,14 @@ coffee_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'coffee',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')
 coffee_tasting.event_images.attach(io: file, filename: 'coffee.png', content_type: 'image/png')
 p 'coffee_tasting seeded'
 
 tea_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Tea Tasting',
   summary: 'This is a tasting event for Tea',
   description: 'This is a tasting event for Tea. We love Tea',
@@ -80,14 +79,14 @@ tea_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'tea',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')
 tea_tasting.event_images.attach(io: file, filename: 'tea.png', content_type: 'image/png')
 p 'tea_tasting seeded'
 
 beer_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Beer Tasting',
   summary: 'This is a tasting event for Beer',
   description: 'This is a tasting event for Beer. We love Beer',
@@ -97,14 +96,14 @@ beer_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'beer',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1567696911980-2eed69a46042?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80')
 beer_tasting.event_images.attach(io: file, filename: 'beer.png', content_type: 'image/png')
 p 'beer_tasting seeded'
 
 mulledwine_tasting = Event.create(
-  user_id: 1,
+  user_id: User.first.id,
   name: 'Mulled Wine Tasting',
   summary: 'This is a tasting event for Mulled Wine',
   description: 'This is a tasting event for Mulled Wine. We love Mulled Wine',
@@ -114,7 +113,7 @@ mulledwine_tasting = Event.create(
   capacity: rand(0..20),
   published: true,
   drink_type: 'wine',
-  event_type_id: 1
+  event_type_id: EventType.first.id
 )
 file = URI.open('https://images.unsplash.com/photo-1602249367848-8468f3979e63?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=790&q=80')
 mulledwine_tasting.event_images.attach(io: file, filename: 'mulledwine.png', content_type: 'image/png')
