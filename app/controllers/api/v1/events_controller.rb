@@ -29,8 +29,11 @@ class Api::V1::EventsController < Api::V1::BaseController
     find_user = params[:userId]
     find_date = params[:date]
     find_start = params[:startTime]
-    # find_end = params[:endTime]
+    find_end = params[:endTime]
     find_begins_at = find_date + " " + find_start
+    start_array = find_start.split(':')
+    end_array = find_end.split(':')
+    duration = (start_array[0].to_i * 60 + start_array[1].to_i) - (end_array[0].to_i * 60 + end_array[1].to_i)
     # find_duration = find_end - find_start
     # p find_duration
     begins_at = Time.parse(find_begins_at)
@@ -40,7 +43,7 @@ class Api::V1::EventsController < Api::V1::BaseController
     @event.user = User.find(find_user)
     @event.event_type = EventType.find(1)
     @event.begins_at = begins_at
-    # @event.duration = find_duration
+    @event.duration = duration
     p "========================="
     @event.save!
     # @event.update(published: true)
