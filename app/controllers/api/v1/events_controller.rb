@@ -33,9 +33,13 @@ class Api::V1::EventsController < Api::V1::BaseController
     find_begins_at = find_date + " " + find_start
     start_array = find_start.split(':')
     end_array = find_end.split(':')
-    duration = (start_array[0].to_i * 60 + start_array[1].to_i) - (end_array[0].to_i * 60 + end_array[1].to_i)
-    # find_duration = find_end - find_start
-    # p find_duration
+    duration = (end_array[0].to_i * 60 + end_array[1].to_i) - (start_array[0].to_i * 60 + start_array[1].to_i)
+    # if duration_raw > 0
+    #   duration = duration_raw
+    # end
+
+
+
     begins_at = Time.parse(find_begins_at)
     p "========================="
     @event = Event.new(event_params)
