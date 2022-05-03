@@ -1,36 +1,26 @@
 class Api::V1::UsersController < Api::V1::BaseController
   # skip_before_action :authenticate_user!, only: [:login]
 
-  URL = "https://api.weixin.qq.com/sns/jscode2session".freeze
+  before_action :authenticate_user!, except: [:create], raise: false
+  skip_before_action :verify_authenticity_token
 
   before_action :find_user, only: %i[show update]
 
+  def create
+    user = get_user
+    token = Tiddle.create_and_return_token(user, request) # generate the token for API authentication
+    render json: {
+      user: user,
+      headers: {
+        "X-USER-EMAIL"=> user.email,
+        "X-USER-TOKEN"=> token
+      }
+    }
+  end
 
   def show
     @events_as_goer = @user.reservations.joins(:event)
     p @events_as_goer
-  end
-
-
-
-  def login
-    p "-----------------------START LOGGING-----------------------"
-    p "-----------------------WECHAT USER-----------------------"
-    # p wechat_user
-    # p "-----------------------WECHAT USER-----------------------"
-    p "we are here line 24"
-    mp_openid = wechat_user.fetch("openid")
-    p "-----------------------MP-OPENID-----------------------"
-    p "we are here line 27", mp_openid
-    p "-----------------------MP-OPENID-----------------------"
-    @user = User.find_or_create_by(mp_openid: mp_openid)
-    p "@user"
-    p @user
-    render json: {
-      userId: @user.id,
-      currentUser: @user,
-      headers: {"X-USER-ID" => @user.id}
-    }
   end
 
   def update
@@ -47,26 +37,30 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user = User.find(params[:id])
   end
 
-  def wechat_user
-    wechat_params = {
-      appid: Rails.application.credentials[:wx_app_id],
-      secret: Rails.application.credentials[:wx_secret_id],
-      js_code: params[:code],
-      grant_type: "authorization_code"
-    }
-    p "-----------------------WECHAT_PARAMS-----------------------"
-    p wechat_params
-    p "-----------------------WECHAT_PARAMS-----------------------"
-    p "-----------------------WECHAT_RESPONSE-----------------------"
-    p "we are here line 59"
-    @wechat_response ||= RestClient.get(URL, params: wechat_params)
-    p @wechat_response
-    p "-----------------------WECHAT_RESPONSE-----------------------"
-    p "-----------------------WECHAT_USER-----------------------"
-    @wechat_user ||= JSON.parse(@wechat_response.body)
-    # p @wechat_user
-    # p "-----------------------WECHAT_USER-----------------------"
+  def get_user
+    open_id = fetch_wx_open_id(params[:code])["openid"]
+    user = User.find_by(open_id: openid)
+
+    if user.blank?
+      user = User.create!(
+        open_id: open_id,
+        email: "#{openid.downcase}_#{SecureRandom.hex(3)}@wx.com", # create some random email
+        password: Devise.friendly_token(20)
+      )
+    end
+    return user
   end
 
+  def fetch_wx_open_id(code)
+    # change accordingly if you're using ENV variables instead
+    app_id = Rails.application.credentials.dig(:wechat, :app_id)
+    app_secret = Rails.application.credentials.dig(:wechat, :app_secret)
+    url = "https://api.weixin.qq.com/sns/jscode2session?appid=#{app_id}&secret=#{app_secret}&js_code=#{code}&grant_type=authorization_code"
+    response = RestClient.get(url)
+    JSON.parse(response.body)
+  end
 
+  def render_error(object)
+    render json: { status: 'fail', res: 'fail', errors: object.errors.full_messages }, status: 422
+  end
 end

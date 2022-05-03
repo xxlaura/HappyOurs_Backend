@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_16_094216) do
+ActiveRecord::Schema.define(version: 2022_05_03_144158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 2022_01_16_094216) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "authentication_tokens", force: :cascade do |t|
+    t.string "body"
+    t.bigint "user_id", null: false
+    t.datetime "last_used_at"
+    t.string "ip_addres"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_authentication_tokens_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -74,11 +84,12 @@ ActiveRecord::Schema.define(version: 2022_01_16_094216) do
     t.bigint "user_id", null: false
     t.datetime "begins_at"
     t.integer "duration"
+    t.bigint "event_type_id", null: false
     t.boolean "published", default: false
     t.float "longitude"
     t.float "latitude"
     t.integer "drink_type"
-    t.bigint "event_type_id"
+    t.index ["event_type_id"], name: "index_events_on_event_type_id"
     t.index ["user_id"], name: "index_events_on_user_id"
   end
 
@@ -108,12 +119,22 @@ ActiveRecord::Schema.define(version: 2022_01_16_094216) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "nickname"
     t.string "avatar"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "authentication_token", limit: 30
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "authentication_tokens", "users"
   add_foreign_key "drinks", "categories", column: "categories_id"
   add_foreign_key "event_drinks", "drinks"
   add_foreign_key "event_drinks", "events"
+  add_foreign_key "events", "event_types"
   add_foreign_key "events", "users"
   add_foreign_key "reservations", "events"
   add_foreign_key "reservations", "users"

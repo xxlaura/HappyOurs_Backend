@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
+  devise_for :users
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :users, only: %i[show update create]
-      post '/login', to: 'users#login'
+      devise_scope :user do
+        post 'login', to: 'user_sessions#create', as: 'login'
+      end
+      put 'users/update', to: 'users#update'
+      put 'users/show', to: 'users#show'
       post '/events/search', to: 'events#search'
       get '/events/search', to: 'events#search'
       post "events/:id/new_images", to: "events#new_images"
