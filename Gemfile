@@ -33,10 +33,12 @@ gem 'pg_search'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 
 
-# gem 'devise'
+gem 'devise'
+gem 'tiddle'
 gem 'autoprefixer-rails', '10.2.5'
 gem 'font-awesome-sass'
 gem 'simple_form'
+
 
 # For API calls
 gem 'rest-client'
