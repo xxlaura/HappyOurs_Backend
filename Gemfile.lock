@@ -303,6 +303,7 @@ PLATFORMS
 DEPENDENCIES
   activestorage-aliyun
   autoprefixer-rails (= 10.2.5)
+  bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   bullet
   byebug
@@ -340,4 +341,4 @@ RUBY VERSION
    ruby 2.7.3p183
 
 BUNDLED WITH
-   2.2.32
+   2.3.16
